@@ -1,5 +1,5 @@
 import express from "express";
-import line from "@line/bot-sdk";
+import * as line from "@line/bot-sdk";
 
 const config = {
   channelSecret: "6a552d3a8497d973dc48c066313b6187",
@@ -9,12 +9,13 @@ const config = {
 
 const app: express.Express = express();
 
+app.use("/webhook", line.middleware(config));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const router: express.Router = express.Router();
 router.get("/", (req, res) => res.send("Hello LINE Bot Example!"));
-router.post("/webhook", line.middleware(config), (req, res) => {
+router.post("/webhook", (req, res) => {
   console.log(req.body.events);
   Promise.all(req.body.events.map(handleEvent)).then((result) =>
     res.json(result)
@@ -23,7 +24,7 @@ router.post("/webhook", line.middleware(config), (req, res) => {
 app.use(router);
 
 const client = new line.Client(config);
-const handleEvent = async (event) => {
+const handleEvent = async (event: line.WebhookEvent) => {
   if (event.type !== "message" || event.message.type !== "text") {
     return Promise.resolve(null);
   }
