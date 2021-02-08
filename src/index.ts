@@ -40,3 +40,5 @@ const handleEvent = async (event: line.WebhookEvent) => {
 app.listen(3000, () =>
   console.log("Line bot Example app listening on port 3000!")
 );
+
+export default app;

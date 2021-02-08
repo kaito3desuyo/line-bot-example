@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc --outDir dist",
     "ts-node": "ts-node",
     "start": "npm run ts-node -- src/index.ts",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "deploy": "npm run tsc && sls deploy"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
   },
   "dependencies": {
     "@line/bot-sdk": "^7.2.0",
+    "@vendia/serverless-express": "^4.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   }

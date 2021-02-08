@@ -1,0 +1,18 @@
+service: serverless-express-test
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-1
+  profile: seapolis-admin
+
+package:
+  exclude:
+    - .git/**
+
+functions:
+  serverlessTest:
+    handler: dist/handler.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
