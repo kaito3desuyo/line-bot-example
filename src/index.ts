@@ -1,10 +1,12 @@
 import express from "express";
 import * as line from "@line/bot-sdk";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const config = {
-  channelSecret: "6a552d3a8497d973dc48c066313b6187",
-  channelAccessToken:
-    "NzFiiDGf6Lt+uiBAjvUZ6hQ+pQvBBJG3DUE0iUgsT+/77HagDc490kFlsutZeZQynZWkxPxbnqg3qLI2IA32dEup7EpW/WNzmO9AJ/e6F3N/wUiTlx3lan83LRXAZbDX7UMzLDpRF4LKH4rRp35CrAdB04t89/1O/w1cDnyilFU=",
+  channelSecret: process.env.CHANNEL_SECRET ?? "",
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN ?? "",
 } as const;
 
 const app: express.Express = express();
