@@ -15,4 +15,4 @@ functions:
     handler: dist/handler.handler
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 'ANY /{proxy+}'
