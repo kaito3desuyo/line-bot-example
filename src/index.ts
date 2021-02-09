@@ -1,19 +1,20 @@
 import * as line from "@line/bot-sdk";
+import AWS from "aws-sdk";
 import * as dialogflow from "dialogflow";
 import * as dotenv from "dotenv";
 import express from "express";
-import AWS from "aws-sdk";
+import {
+  ddbConfig,
+  dialogflowConfig,
+  lineClientConfig,
+  lineMiddlewareConfig,
+} from "./config";
 
 dotenv.config();
 
-const config = {
-  channelSecret: process.env.CHANNEL_SECRET ?? "",
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN ?? "",
-} as const;
-
 const app: express.Express = express();
 
-app.use("/webhook", line.middleware(config));
+app.use("/webhook", line.middleware(lineMiddlewareConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,19 +28,9 @@ router.post("/webhook", (req, res) => {
 });
 app.use(router);
 
-const client = new line.Client(config);
-const documentClient = new AWS.DynamoDB.DocumentClient({
-  apiVersion: "2012-08-10",
-  region: "ap-northeast-1",
-});
-
-const dialogflowClient = new dialogflow.SessionsClient({
-  projectId: process.env.GOOGLE_PROJECT_ID ?? "",
-  credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL ?? "",
-    private_key: (process.env.GOOGLE_PRIVATE_KEY ?? "").replace(/\\n/g, "\n"),
-  },
-});
+const client = new line.Client(lineClientConfig);
+const documentClient = new AWS.DynamoDB.DocumentClient(ddbConfig);
+const dialogflowClient = new dialogflow.SessionsClient(dialogflowConfig);
 
 const handleEvent = async (event: line.WebhookEvent) => {
   if (event.type !== "message" || event.message.type !== "text") {
