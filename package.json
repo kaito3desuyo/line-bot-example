@@ -1,41 +1,25 @@
 {
   "name": "line-bot-example",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc --outDir dist",
-    "ts-node": "ts-node",
-    "start": "node index.js",
-    "dev": "nodemon --watch '*.js' --exec 'node' index.js",
-    "deploy": "sls deploy"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kaito3desuyo/line-bot-example.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kaito3desuyo/line-bot-example/issues"
-  },
-  "homepage": "https://github.com/kaito3desuyo/line-bot-example#readme",
-  "devDependencies": {
-    "@types/dialogflow": "^0.11.0",
-    "@types/express": "^4.17.11",
-    "@types/node": "^14.14.25",
-    "nodemon": "^2.0.7",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "dev": "bottender dev",
+    "lint": "eslint . --ext=js,ts",
+    "start": "tsc && bottender start",
+    "test": "jest"
   },
   "dependencies": {
-    "@line/bot-sdk": "^7.2.0",
-    "@vendia/serverless-express": "^4.2.0",
-    "aws-sdk": "^2.840.0",
-    "bot-express": "^0.7.72",
-    "dialogflow": "^1.2.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "@types/jest": "26.0.20",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "bottender": "1.5.1-alpha.8",
+    "eslint": "7.19.0",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.3.1",
+    "jest": "26.6.3",
+    "prettier": "2.2.1",
+    "ts-jest": "26.5.1",
+    "typescript": "4.1.4"
   }
 }
