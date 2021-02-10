@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc --outDir dist",
     "ts-node": "ts-node",
-    "start": "npm run ts-node -- src/index.ts",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "deploy": "npm run tsc && sls deploy"
+    "start": "node index.js",
+    "dev": "nodemon --watch '*.js' --exec 'node' index.js",
+    "deploy": "sls deploy"
   },
   "repository": {
     "type": "git",

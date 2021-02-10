@@ -15,7 +15,7 @@ package:
 
 functions:
   app:
-    handler: dist/handler.handler
+    handler: handler.handler
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'
