@@ -6,13 +6,16 @@
     "dev": "bottender dev",
     "lint": "eslint . --ext=js,ts",
     "start": "tsc && bottender start",
-    "test": "jest"
+    "test": "jest",
+    "server:deploy": "tsc && sls deploy"
   },
   "dependencies": {
     "@types/jest": "26.0.20",
     "@typescript-eslint/eslint-plugin": "4.15.0",
     "@typescript-eslint/parser": "4.15.0",
-    "bottender": "1.5.1-alpha.8",
+    "@vendia/serverless-express": "^4.3.1",
+    "bottender": "^1.4.10",
+    "dotenv": "^8.2.0",
     "eslint": "7.19.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-import": "2.22.1",

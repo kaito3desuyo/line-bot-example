@@ -1,7 +1,8 @@
 import { Action, LineContext } from 'bottender';
 
 export default async function App(
-  context: LineContext
+    context: LineContext
 ): Promise<Action<LineContext> | void> {
-  await context.sendText('Welcome to Bottender');
+    console.log(context);
+    await context.sendText('Welcome to Bottender');
 }

@@ -1,0 +1,37 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const serverlessExpress = require('@vendia/serverless-express');
+const bodyParser = require('body-parser');
+const express = require('express');
+const { bottender } = require('bottender');
+
+const app = bottender({
+    dev: process.env.NODE_ENV !== 'production',
+});
+
+const port = Number(process.env.PORT) || 5000;
+
+const handle = app.getRequestHandler();
+
+const server = express();
+server.use(
+    bodyParser.json({
+        verify: (req, _, buf) => {
+            req.rawBody = buf.toString();
+        },
+    })
+);
+
+server.all('*', async (req, res) => {
+    await app.prepare();
+    return handle(req, res);
+});
+
+server.listen(port, (err) => {
+    if (err) {
+        console.log(err);
+        throw err;
+    }
+    console.log(`> Ready on http://localhost:${port}`);
+});
+
+module.exports.handler = serverlessExpress({ app: server }).handler;
