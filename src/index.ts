@@ -1,5 +1,5 @@
 import dialogflow from '@bottender/dialogflow';
-import { Action, chain, Context, LineContext } from 'bottender';
+import { Action, chain, LineContext } from 'bottender';
 import { AnyContext, Props } from 'bottender/dist/types';
 import { route, router } from 'bottender/router';
 import { QueryResult } from 'dialogflow';
@@ -8,14 +8,7 @@ const SortDemaeFromDialogflow: Action<LineContext, QueryResult> = async (
     context: LineContext,
     props: QueryResult
 ) => {
-    console.log(context, props);
-
     if (props.intent.displayName === 'demae-order-regist-address') {
-        console.log(
-            props?.parameters?.fields?.location[
-                props?.parameters?.fields?.location?.kind
-            ]
-        );
         context.setState({
             params: {
                 ...context.state.params,
@@ -26,7 +19,10 @@ const SortDemaeFromDialogflow: Action<LineContext, QueryResult> = async (
             },
         });
         return SayAddressAndRequestConfirm(context, props);
-    } else if (props.intent.displayName === 'demae-order-select-menu') {
+    } else if (
+        props.intent.displayName === 'demae-order-select-menu' ||
+        props.intent.displayName === 'demae-order-with-menu'
+    ) {
         context.setState({
             params: {
                 ...context.state.params,
@@ -98,6 +94,7 @@ const Dialogflow = dialogflow({
     languageCode: 'ja',
     actions: {
         'demae-order': SortDemaeFromDialogflow as Action<AnyContext>,
+        'demae-order-with-menu': SortDemaeFromDialogflow as Action<AnyContext>,
         'demae-order-select-menu': SortDemaeFromDialogflow as Action<AnyContext>,
         'demae-order-regist-address': SortDemaeFromDialogflow as Action<AnyContext>,
     },
