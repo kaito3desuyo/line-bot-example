@@ -2,4 +2,6 @@
 /* eslint-disable import/no-unresolved */
 module.exports = require('./dist').default;
 
-module.exports.server = require('./server').server;
+if (process.env.IS_GCP) {
+    module.exports.server = require('./server').server;
+}

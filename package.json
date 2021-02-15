@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "bottender dev",
+        "dev": "cross-env DEBUG=bottender:action bottender dev --console",
         "lint": "eslint . --ext=js,ts",
         "start": "tsc && bottender start",
         "test": "jest",
@@ -12,12 +12,15 @@
         "server:deploy": "tsc && gcloud functions deploy line-bot-example --region asia-northeast1 --runtime nodejs14 --trigger-http --entry-point server --env-vars-file .env.yaml"
     },
     "dependencies": {
+        "@bottender/dialogflow": "^1.5.1-alpha.8",
         "bottender": "^1.4.10",
         "cross-env": "^7.0.3",
+        "dialogflow": "^1.2.0",
         "dotenv": "^8.2.0",
         "typescript": "4.1.4"
     },
     "devDependencies": {
+        "@types/dialogflow": "^0.11.0",
         "@types/jest": "^26.0.20",
         "@typescript-eslint/eslint-plugin": "^4.15.0",
         "@typescript-eslint/parser": "^4.15.0",
