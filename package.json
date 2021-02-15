@@ -1,28 +1,33 @@
 {
-  "name": "line-bot-example",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "bottender dev",
-    "lint": "eslint . --ext=js,ts",
-    "start": "tsc && bottender start",
-    "test": "jest",
-    "server:deploy": "tsc && sls deploy"
-  },
-  "dependencies": {
-    "@types/jest": "26.0.20",
-    "@typescript-eslint/eslint-plugin": "4.15.0",
-    "@typescript-eslint/parser": "4.15.0",
-    "@vendia/serverless-express": "^4.3.1",
-    "bottender": "^1.4.10",
-    "dotenv": "^8.2.0",
-    "eslint": "7.19.0",
-    "eslint-config-prettier": "7.2.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-prettier": "3.3.1",
-    "jest": "26.6.3",
-    "prettier": "2.2.1",
-    "ts-jest": "26.5.1",
-    "typescript": "4.1.4"
-  }
+    "name": "line-bot-example",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "bottender dev",
+        "lint": "eslint . --ext=js,ts",
+        "start": "tsc && bottender start",
+        "test": "jest",
+        "server:dev": "nodemon server.js",
+        "server:start": "cross-env NODE_ENV=production node server.js",
+        "server:deploy": "tsc && gcloud functions deploy line-bot-example --region asia-northeast1 --runtime nodejs14 --trigger-http --entry-point server --env-vars-file .env.yaml"
+    },
+    "dependencies": {
+        "bottender": "^1.4.10",
+        "cross-env": "^7.0.3",
+        "dotenv": "^8.2.0",
+        "typescript": "4.1.4"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.20",
+        "@typescript-eslint/eslint-plugin": "^4.15.0",
+        "@typescript-eslint/parser": "^4.15.0",
+        "eslint": "^7.19.0",
+        "eslint-config-prettier": "^7.2.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-prettier": "^3.3.1",
+        "jest": "^26.6.3",
+        "nodemon": "^2.0.7",
+        "prettier": "^2.2.1",
+        "ts-jest": "^26.5.1"
+    }
 }

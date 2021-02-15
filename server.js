@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const serverlessExpress = require('@vendia/serverless-express');
 const bodyParser = require('body-parser');
 const express = require('express');
 const { bottender } = require('bottender');
@@ -22,16 +21,19 @@ server.use(
 );
 
 server.all('*', async (req, res) => {
-    await app.prepare();
-    return handle(req, res);
+    app.prepare().then(() => {
+        return handle(req, res);
+    });
 });
 
-server.listen(port, (err) => {
-    if (err) {
-        console.log(err);
-        throw err;
-    }
-    console.log(`> Ready on http://localhost:${port}`);
-});
+if (!process.env.IS_GCP) {
+    server.listen(port, (err) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        console.log(`> Ready on http://localhost:${port}`);
+    });
+}
 
-module.exports.handler = serverlessExpress({ app: server }).handler;
+module.exports = { server };
