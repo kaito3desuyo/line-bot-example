@@ -1,6 +1,8 @@
+const DynamoDBSessionStore = require('./dynamodb.store');
+
 module.exports = {
     session: {
-        driver: 'memory',
+        driver: process.env.IS_GCP ? 'dynamodb' : 'memory',
         stores: {
             memory: {
                 maxSize: 500,
@@ -18,6 +20,12 @@ module.exports = {
                 url: 'mongodb://localhost:27017',
                 collectionName: 'sessions',
             },
+            dynamodb: new DynamoDBSessionStore({
+                accessToken: process.env.AWS_IAM_ACCESS_TOKEN,
+                secretToken: process.env.AWS_IAM_SECRET_TOKEN,
+                region: 'ap-northeast-1',
+                tableName: 'line-bot-example-session',
+            }),
         },
     },
     initialState: {

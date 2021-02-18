@@ -1,32 +1,38 @@
 module.exports = {
-    parser: '@typescript-eslint/parser',
-    extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended',
-        'prettier',
-        'prettier/@typescript-eslint',
-    ],
+    extends: ['eslint:recommended', 'prettier'],
     env: {
         node: true,
     },
-    rules: {
-        'prettier/prettier': [
-            'error',
-            {
-                tabWidth: 4,
-                trailingComma: 'es5',
-                singleQuote: true,
-            },
-        ],
-    },
-    plugins: ['import', 'prettier', '@typescript-eslint'],
     overrides: [
+        {
+            files: ['*.js'],
+            parser: '@babel/eslint-parser',
+            rules: {
+                '@babel/new-cap': 'error',
+                '@babel/no-invalid-this': 'error',
+                '@babel/no-unused-expressions': 'error',
+                '@babel/object-curly-spacing': 'error',
+                '@babel/semi': 'error',
+            },
+            plugins: ['@babel'],
+        },
         {
             files: ['**/*.test.ts'],
             env: {
                 jest: true,
             },
+        },
+        {
+            files: ['*.ts'],
+            parser: '@typescript-eslint/parser',
+            extends: [
+                'eslint:recommended',
+                'plugin:@typescript-eslint/eslint-recommended',
+                'plugin:@typescript-eslint/recommended',
+                'prettier',
+                'prettier/@typescript-eslint',
+            ],
+            plugins: ['import', '@typescript-eslint'],
         },
     ],
 };
